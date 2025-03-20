@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GhostView - 高级设置</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    
+    body {
+      background-color: #1a1a2e;
+      color: #e6e6e6;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #373756;
+    }
+    
+    .logo {
+      width: 48px;
+      height: 48px;
+      margin-right: 15px;
+    }
+    
+    h1 {
+      font-size: 28px;
+      color: #e6e6e6;
+    }
+    
+    .section {
+      background-color: #16213e;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #e6e6e6;
+    }
+    
+    .option-group {
+      margin-bottom: 25px;
+    }
+    
+    .option-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .option-label {
+      flex: 1;
+    }
+    
+    .option-title {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    
+    .option-description {
+      font-size: 14px;
+      color: #8e8ea0;
+    }
+    
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+      margin-left: 20px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #373756;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #4ecca3;
+    }
+    
+    input:focus + .slider {
+      box-shadow: 0 0 1px #4ecca3;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    .slider.round {
+      border-radius: 24px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"], 
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 4px;
+      border: 1px solid #373756;
+      background-color: #1a1a2e;
+      color: #e6e6e6;
+      font-size: 14px;
+    }
+    
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
+    }
+    
+    .btn-primary {
+      background-color: #4ecca3;
+      color: #1a1a2e;
+    }
+    
+    .btn-primary:hover {
+      background-color: #3db590;
+    }
+    
+    .btn-secondary {
+      background-color: #373756;
+      color: #e6e6e6;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #454568;
+    }
+    
+    .btn-danger {
+      background-color: #ff6b6b;
+      color: #ffffff;
+    }
+    
+    .btn-danger:hover {
+      background-color: #e55959;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4ecca3;
+      color: #1a1a2e;
+      padding: 10px 20px;
+      border-radius: 4px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .notification.fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="icons/logo.png" alt="GhostView Logo" class="logo">
+      <h1>GhostView - 高级设置</h1>
+    </div>
+    
+    <div class="section">
+      <h2>Tor网络设置</h2>
+      <div class="option-group">
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">启用Tor网络代理</div>
+            <div class="option-description">通过Tor网络路由您的流量，以获取更高的匿名性</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="enableTor">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="form-group">
+          <label for="torHost">Tor SOCKS代理主机:</label>
+          <input type="text" id="torHost" value="127.0.0.1">
+        </div>
+        
+        <div class="form-group">
+          <label for="torPort">Tor SOCKS代理端口:</label>
+          <input type="number" id="torPort" value="9050">
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>隐私保护设置</h2>
+      
+      <div class="option-group">
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">阻止WebRTC</div>
+            <div class="option-description">防止WebRTC泄露您的真实IP地址</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="blockWebRTC" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">禁用地理位置API</div>
+            <div class="option-description">阻止网站获取您的位置信息</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="disableGeolocation" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">阻止第三方Cookie</div>
+            <div class="option-description">阻止网站设置跟踪Cookie</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="blockCookies" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">禁用网站数据存储</div>
+            <div class="option-description">阻止网站保存本地数据和缓存</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="blockStorage" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">发送Do Not Track请求</div>
+            <div class="option-description">请求网站不要跟踪您的活动</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="sendDNT" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>用户代理伪装</h2>
+      
+      <div class="option-group">
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">伪装用户代理</div>
+            <div class="option-description">修改浏览器标识以提高匿名性</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="fakeUserAgent" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="form-group">
+          <label for="userAgentType">用户代理类型:</label>
+          <select id="userAgentType">
+            <option value="random">随机（每次请求变化）</option>
+            <option value="generic" selected>通用（高匿名性）</option>
+            <option value="custom">自定义</option>
+          </select>
+        </div>
+        
+        <div class="form-group" id="customUAContainer">
+          <label for="customUA">自定义用户代理:</label>
+          <input type="text" id="customUA" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36">
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>DNS设置</h2>
+      
+      <div class="option-group">
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">自定义DNS服务器</div>
+            <div class="option-description">使用自定义DNS服务器以提高安全性和隐私保护</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="enableCustomDNS">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="form-group">
+          <label for="dnsProvider">选择DNS提供商:</label>
+          <select id="dnsProvider">
+            <option value="system">系统默认</option>
+            <!-- DNS选项将在脚本中动态添加 -->
+          </select>
+        </div>
+        
+        <div class="form-group" id="customDNSContainer">
+          <label for="customDNS">自定义DNS服务器 (以逗号分隔):</label>
+          <input type="text" id="customDNS" placeholder="例如: 8.8.8.8, 8.8.4.4">
+        </div>
+        
+        <div class="option-description" id="dnsDescription">
+          选择DNS服务器可以提高隐私保护，避免DNS劫持和污染。
+        </div>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>浏览数据管理</h2>
+      
+      <div class="option-group">
+        <div class="option-row">
+          <div class="option-label">
+            <div class="option-title">退出时自动清除数据</div>
+            <div class="option-description">当您关闭隐私模式时自动清除浏览数据</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="autoClear" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="btn-container">
+        <button id="clearAllData" class="btn btn-danger">立即清除所有浏览数据</button>
+      </div>
+    </div>
+    
+    <div class="btn-container">
+      <button id="restoreDefaults" class="btn btn-secondary">恢复默认设置</button>
+      <button id="saveSettings" class="btn btn-primary">保存设置</button>
+    </div>
+  </div>
+  
+  <script src="js/options.js"></script>
+</body>
+</html> 

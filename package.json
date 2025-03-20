@@ -1,0 +1,20 @@
+{
+  "name": "ghostview",
+  "version": "1.0.0",
+  "description": "提供比Chrome隐身模式更强大的隐私保护，类似Tor的匿名浏览体验",
+  "main": "background.js",
+  "scripts": {
+    "build": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chrome-extension",
+    "privacy",
+    "tor",
+    "incognito",
+    "anonymous"
+  ],
+  "author": "GhostView",
+  "license": "MIT",
+  "dependencies": {}
+} 

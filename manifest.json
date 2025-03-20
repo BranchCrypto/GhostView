@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "GhostView - 高级隐私浏览",
+  "version": "1.0.0",
+  "description": "提供比Chrome隐身模式更强大的隐私保护，类似Tor的匿名浏览体验",
+  "permissions": [
+    "privacy",
+    "webRequest",
+    "declarativeNetRequest",
+    "cookies",
+    "storage",
+    "tabs",
+    "proxy",
+    "browsingData",
+    "notifications",
+    "theme",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/logo.png"
+  },
+  "icons": {
+    "128": "icons/logo.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["devtools.html", "js/dns_config.js", "dns_guide.html", "icons/bg.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+} 
